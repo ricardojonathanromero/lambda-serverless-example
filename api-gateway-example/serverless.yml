@@ -3,10 +3,8 @@ service: api-gateway-example
 frameworkVersion: '3'
 
 provider:
-  timeout: 30
   name: aws
   runtime: go1.x
-  profile: insurance-dev
 
 # you can overwrite defaults here
 #  stage: dev
@@ -48,7 +46,6 @@ functions:
           method: get
     environment:
       MONGODB_URI: ${file(./credentials.json):mongo_url}
-      DATADOG_API_KEY: ${file(./credentials.json):datadog.api_key}
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
@@ -101,6 +98,18 @@ functions:
 #     NewOutput:
 #       Description: "Description for the output"
 #       Value: "Some output value"
+
+resources:
+  Resources:
+    DataDogSM:
+      Type: AWS::SecretsManager::Secret
+      Properties:
+        Name: DatadogKey
+        SecretString: ${file(./credentials.json):datadog.api_key}
+  Outputs:
+    DataDogArn:
+      Description: "Datadog Arn"
+      Value: !GetAtt DataDogSM.Ref
 
 custom:
   datadog:

@@ -5,6 +5,7 @@ frameworkVersion: '3'
 provider:
   name: aws
   runtime: go1.x
+  stage: dev
 
 # you can overwrite defaults here
 #  stage: dev
@@ -27,10 +28,13 @@ provider:
 #              - - "arn:aws:s3:::"
 #                - "Ref" : "ServerlessDeploymentBucket"
 #                - "/*"
-
-# you can define service wide environment variables here
-#  environment:
-#    variable1: value1
+  iamRoleStatements:
+    - Effect: Allow
+      Action: "secretsmanager:GetSecretValue"
+      Resource:
+        Fn::Join:
+          - ""
+          - - "Ref": ["list", "arn"]
 
 package:
   patterns:

@@ -23,7 +23,7 @@ type handler struct {
 var _ port.IHandler = (*handler)(nil)
 
 // HandleRequest business logic/*
-func (h *handler) HandleRequest(ctx context.Context, req events.APIGatewayProxyRequest) events.APIGatewayProxyResponse {
+func (h *handler) HandleRequest(ctx context.Context, req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
 	res := events.APIGatewayProxyResponse{Headers: commonHeaders, IsBase64Encoded: true}
 
 	_, _ = tracer.StartSpanFromContext(ctx, "list todos")
@@ -43,13 +43,13 @@ func (h *handler) HandleRequest(ctx context.Context, req events.APIGatewayProxyR
 		res.StatusCode = http.StatusConflict
 		res.Body = utils.EncodeStr(utils.ToString(domain.NewErr("not_found", err.Error())))
 		log.Error("error result GetAll()")
-		return res
+		return res, nil
 	}
 
 	log.Info("returning response")
 	res.StatusCode = http.StatusOK
 	res.Body = utils.EncodeStr(utils.ToString(result))
-	return res
+	return res, nil
 }
 
 func New(srv port.IService) port.IHandler {

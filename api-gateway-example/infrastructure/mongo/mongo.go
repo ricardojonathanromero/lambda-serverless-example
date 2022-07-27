@@ -28,7 +28,7 @@ func NewConn() (*mongo.Client, error) {
 
 	// create client connection
 	log.Infof("conencting to %s", uri)
-	client, err := mongo.Connect(context.TODO(), options.Client().ApplyURI(uri))
+	client, err := mongo.Connect(ctx, options.Client().ApplyURI(uri))
 	if err != nil {
 		log.Errorf("error connecting to db. reason\n%v", err)
 		return client, InvalidMongoDBConn

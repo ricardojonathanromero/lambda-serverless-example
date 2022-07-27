@@ -1,52 +1,37 @@
 package repository
 
 import (
-	"errors"
 	"github.com/ricardojonathanromero/lambda-serverless-example/api-gateway-example/todo-update/internal/domain"
 	"github.com/ricardojonathanromero/lambda-serverless-example/api-gateway-example/todo-update/internal/port"
 	"github.com/ricardojonathanromero/lambda-serverless-example/api-gateway-example/utils"
-	"github.com/sirupsen/logrus"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
-	"time"
 )
 
-const timeoutIn = 10 * time.Second
-
-var (
-	log                = logrus.New()
-	DocumentNotUpdated = errors.New("document could not be updated")
-)
-
-type repository struct {
+type mongoRepo struct {
 	conn *mongo.Client
 	db   string
 	col  string
 }
 
-var _ port.IRepository = (*repository)(nil)
+var _ port.IRepository = (*mongoRepo)(nil)
 
 // Update replace current values from domain.TModel by passed/*
-func (repo *repository) Update(todo domain.TModel) error {
+func (repo *mongoRepo) Update(todo *domain.TModel) error {
+	var item *domain.MongoModel
+	utils.CopyStruct(todo, &item)
+
 	ctx, cancel := utils.NewContextWithTimeout(timeoutIn)
 	defer cancel()
 
-	log.Tracef("updating todo-list: %v", utils.ToString(todo))
-	res, err := repo.collection().ReplaceOne(ctx, bson.M{"_id": todo.ID}, todo)
+	log.Infof("updating todo-list: %v", utils.ToString(item))
+	log.Infof("id: %v", item.ID.Hex())
+	res, err := repo.collection().ReplaceOne(ctx, bson.M{"_id": item.ID}, item)
+
 	if err != nil || (res.MatchedCount == 0 && res.UpsertedCount == 0) {
 		log.Errorf("error updating document: %v", err)
 		return DocumentNotUpdated
 	}
 
 	return nil
-}
-
-// collection returns mongodb collection/*
-func (repo *repository) collection() *mongo.Collection {
-	return repo.conn.Database(repo.db).Collection(repo.col)
-}
-
-// New constructor for repository package/*
-func New(conn *mongo.Client) port.IRepository {
-	return &repository{conn: conn}
 }

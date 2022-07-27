@@ -3,8 +3,8 @@
   "path": "/v1/todos",
   "httpMethod": "GET",
   "queryStringParameters": {
-    "limit": 10,
-    "offset": 0
+    "limit": "10",
+    "offset": "0"
   },
   "stageVariables": {
     "baz": "qux"

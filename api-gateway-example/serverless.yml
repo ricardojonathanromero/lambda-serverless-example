@@ -6,6 +6,7 @@ provider:
   name: aws
   runtime: go1.x
   stage: dev
+  region: us-east-1
 
 # you can overwrite defaults here
 #  stage: dev
@@ -31,10 +32,7 @@ provider:
   iamRoleStatements:
     - Effect: Allow
       Action: "secretsmanager:GetSecretValue"
-      Resource:
-        Fn::Join:
-          - ""
-          - - "Ref": ["list", "arn"]
+      Resource: !Ref DataDogSM
 
 package:
   patterns:
@@ -113,12 +111,12 @@ resources:
   Outputs:
     DataDogArn:
       Description: "Datadog Arn"
-      Value: !GetAtt DataDogSM.Ref
+      Value: !Ref DataDogSM
 
 custom:
   datadog:
     site: ${file(./credentials.json):datadog.site}
-    apiKeySecretArn: ${file(./credentials.json):datadog.api_key}
+    apiKeySecretArn: !Ref DataDogSM
 
 plugins:
   - serverless-plugin-datadog

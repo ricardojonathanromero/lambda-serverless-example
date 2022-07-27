@@ -3,13 +3,17 @@ package main
 import (
 	ddLambda "github.com/DataDog/datadog-lambda-go"
 	"github.com/aws/aws-lambda-go/lambda"
+	"github.com/ricardojonathanromero/lambda-serverless-example/api-gateway-example/infrastructure/dynamodb"
 	"github.com/ricardojonathanromero/lambda-serverless-example/api-gateway-example/infrastructure/mongo"
 	"github.com/ricardojonathanromero/lambda-serverless-example/api-gateway-example/todo-list/internal/handler"
+	"github.com/ricardojonathanromero/lambda-serverless-example/api-gateway-example/todo-list/internal/port"
 	"github.com/ricardojonathanromero/lambda-serverless-example/api-gateway-example/todo-list/internal/repository"
 	"github.com/ricardojonathanromero/lambda-serverless-example/api-gateway-example/todo-list/internal/service"
 	"github.com/ricardojonathanromero/lambda-serverless-example/api-gateway-example/utils"
 	log "github.com/sirupsen/logrus"
 	"gopkg.in/DataDog/dd-trace-go.v1/profiler"
+	"strings"
+	"time"
 )
 
 func main() {
@@ -29,14 +33,30 @@ func main() {
 	}
 	defer profiler.Stop()
 
-	// init mongodb connection
-	conn, err := mongo.NewConn()
-	if err != nil {
-		log.Fatalf("error initializing mongodb conn: %v", err)
+	// configuring logger formatter
+	if strings.EqualFold(utils.GetEnv("CLOUD", "false"), "true") {
+		log.SetFormatter(&log.JSONFormatter{TimestampFormat: time.RFC3339})
 	}
 
-	hdl := handler.New(service.New(repository.New(conn)))
+	// configuring repository
+	var repo port.IRepository
+	const db string = "todos"
+	if strings.EqualFold(utils.GetEnv("DB", "mongodb"), "dynamodb") {
+		conn, err := dynamodb.NewSess()
+		if err != nil {
+			log.Fatalf("error initializing dynamodb conn: %v", err)
+		}
+		repo = repository.NewDynamoRepo(conn, db)
+	} else {
+		conn, err := mongo.NewConn()
+		if err != nil {
+			log.Fatalf("error initializing mongodb conn: %v", err)
+		}
+		repo = repository.NewMongoRepo(conn, db, db)
+	}
+
+	hdl := handler.New(service.New(repo))
 
 	// initialize lambda wrapper
-	lambda.Start(ddLambda.WrapFunction(hdl, nil))
+	lambda.Start(ddLambda.WrapFunction(hdl.HandleRequest, nil))
 }

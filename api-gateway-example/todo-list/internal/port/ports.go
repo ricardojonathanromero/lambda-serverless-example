@@ -7,7 +7,7 @@ import (
 )
 
 type IHandler interface {
-	HandleRequest(ctx context.Context, req events.APIGatewayProxyRequest) events.APIGatewayProxyResponse
+	HandleRequest(ctx context.Context, req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error)
 }
 
 type IService interface {
@@ -16,5 +16,5 @@ type IService interface {
 
 type IRepository interface {
 	CountDocuments() (int64, error)
-	FindAll(limit, offset int64) ([]domain.TModel, error)
+	FindAll(limit int64, offset int64) ([]*domain.TModel, error)
 }

@@ -25,6 +25,15 @@ func (srv *service) GetAll(limit, offset int64) (domain.Result, error) {
 		return resp, err
 	}
 
+	if total <= 0 {
+		log.Infof("no documents founded: %v", total)
+		resp = domain.Result{
+			Data:     make([]*domain.TModel, 0),
+			Metadata: domain.Metadata{Total: total, Limit: limit, Offset: offset},
+		}
+		return resp, nil
+	}
+
 	log.Info("retrieving all todos")
 	result, err := srv.repo.FindAll(limit, offset)
 	if err != nil {
@@ -33,14 +42,10 @@ func (srv *service) GetAll(limit, offset int64) (domain.Result, error) {
 	}
 
 	resp = domain.Result{
-		Data: result,
-		Metadata: domain.Metadata{
-			Limit:  limit,
-			Offset: offset,
-			Total:  total,
-		},
+		Data:     result,
+		Metadata: domain.Metadata{Total: total, Limit: limit, Offset: offset},
 	}
-	log.Info("return response: %v", utils.ToString(resp))
+	log.Infof("return response: %v", utils.ToString(resp))
 	return resp, nil
 }
 

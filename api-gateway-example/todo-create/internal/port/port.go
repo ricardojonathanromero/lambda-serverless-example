@@ -1,10 +1,22 @@
 package port
 
 import (
+	"context"
+	"github.com/aws/aws-lambda-go/events"
 	"github.com/ricardojonathanromero/lambda-serverless-example/api-gateway-example/todo-create/internal/domain"
-	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
+type IHandler interface {
+	// HandleRequest handle request/*
+	HandleRequest(ctx context.Context, req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error)
+}
+
 type IRepository interface {
-	Inset(todo domain.TModel) (primitive.ObjectID, error)
+	// Insert inserts a new domain.TModel document into db/*
+	Insert(todo domain.TModel) (string, error)
+}
+
+type IService interface {
+	// CreateTodo inserts a new item into db/*
+	CreateTodo(name, priority string) (string, error)
 }

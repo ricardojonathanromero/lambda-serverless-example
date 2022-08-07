@@ -22,7 +22,7 @@ func localDynamoDB(ctx context.Context) (*dynamodb.Client, error) {
 	cfg, err := config.LoadDefaultConfig(ctx,
 		config.WithRegion("us-east-1"),
 		config.WithEndpointResolverWithOptions(aws.EndpointResolverWithOptionsFunc(func(service, region string, options ...interface{}) (aws.Endpoint, error) {
-			return aws.Endpoint{URL: utils.GetEnv("DYNAMODB_URL", "")}, nil
+			return aws.Endpoint{URL: utils.GetEnv("DB_URI", "")}, nil
 		})),
 		config.WithCredentialsProvider(credentials.StaticCredentialsProvider{
 			Value: aws.Credentials{

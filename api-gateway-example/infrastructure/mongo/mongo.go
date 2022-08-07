@@ -21,7 +21,7 @@ var (
 // NewConn creates a new mongodb connection/*
 func NewConn() (*mongo.Client, error) {
 	// get environment variable
-	uri := utils.GetEnv("MONGODB_URI", "")
+	uri := utils.GetEnv("DB_URI", "")
 	// create context with timeout to validate db connection
 	ctx, cancel := utils.NewContextWithTimeout(timeoutIn)
 	defer cancel()

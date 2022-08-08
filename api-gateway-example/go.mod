@@ -6,11 +6,11 @@ require (
 	github.com/DataDog/datadog-lambda-go v1.6.0
 	github.com/aws/aws-lambda-go v1.33.0
 	github.com/aws/aws-sdk-go v1.44.62
-	github.com/aws/aws-sdk-go-v2 v1.16.7
-	github.com/aws/aws-sdk-go-v2/config v1.15.14
-	github.com/aws/aws-sdk-go-v2/credentials v1.12.9
-	github.com/aws/aws-sdk-go-v2/feature/dynamodb/attributevalue v1.9.7
-	github.com/aws/aws-sdk-go-v2/service/dynamodb v1.15.9
+	github.com/aws/aws-sdk-go-v2 v1.16.8
+	github.com/aws/aws-sdk-go-v2/config v1.15.15
+	github.com/aws/aws-sdk-go-v2/credentials v1.12.10
+	github.com/aws/aws-sdk-go-v2/feature/dynamodb/attributevalue v1.9.8
+	github.com/aws/aws-sdk-go-v2/service/dynamodb v1.15.10
 	github.com/docker/docker v20.10.17+incompatible
 	github.com/docker/go-connections v0.4.0
 	github.com/go-playground/validator/v10 v10.4.1
@@ -30,16 +30,16 @@ require (
 	github.com/DataDog/sketches-go v1.4.1 // indirect
 	github.com/Microsoft/go-winio v0.5.2 // indirect
 	github.com/andybalholm/brotli v1.0.4 // indirect
-	github.com/aws/aws-sdk-go-v2/feature/ec2/imds v1.12.8 // indirect
-	github.com/aws/aws-sdk-go-v2/internal/configsources v1.1.14 // indirect
-	github.com/aws/aws-sdk-go-v2/internal/endpoints/v2 v2.4.8 // indirect
-	github.com/aws/aws-sdk-go-v2/internal/ini v1.3.15 // indirect
-	github.com/aws/aws-sdk-go-v2/service/dynamodbstreams v1.13.10 // indirect
+	github.com/aws/aws-sdk-go-v2/feature/ec2/imds v1.12.9 // indirect
+	github.com/aws/aws-sdk-go-v2/internal/configsources v1.1.15 // indirect
+	github.com/aws/aws-sdk-go-v2/internal/endpoints/v2 v2.4.9 // indirect
+	github.com/aws/aws-sdk-go-v2/internal/ini v1.3.16 // indirect
+	github.com/aws/aws-sdk-go-v2/service/dynamodbstreams v1.13.11 // indirect
 	github.com/aws/aws-sdk-go-v2/service/internal/accept-encoding v1.9.3 // indirect
-	github.com/aws/aws-sdk-go-v2/service/internal/endpoint-discovery v1.7.8 // indirect
-	github.com/aws/aws-sdk-go-v2/service/internal/presigned-url v1.9.8 // indirect
-	github.com/aws/aws-sdk-go-v2/service/sso v1.11.12 // indirect
-	github.com/aws/aws-sdk-go-v2/service/sts v1.16.9 // indirect
+	github.com/aws/aws-sdk-go-v2/service/internal/endpoint-discovery v1.7.9 // indirect
+	github.com/aws/aws-sdk-go-v2/service/internal/presigned-url v1.9.9 // indirect
+	github.com/aws/aws-sdk-go-v2/service/sso v1.11.13 // indirect
+	github.com/aws/aws-sdk-go-v2/service/sts v1.16.10 // indirect
 	github.com/aws/aws-xray-sdk-go v1.6.0 // indirect
 	github.com/aws/smithy-go v1.12.0 // indirect
 	github.com/cenkalti/backoff v2.2.1+incompatible // indirect
@@ -69,6 +69,7 @@ require (
 	github.com/philhofer/fwd v1.1.1 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
+	github.com/ricardojonathanromero/lambda-utilities v0.0.0-20220808183342-5cedbcc62f11 // indirect
 	github.com/sony/gobreaker v0.5.0 // indirect
 	github.com/stretchr/objx v0.4.0 // indirect
 	github.com/tinylib/msgp v1.1.6 // indirect

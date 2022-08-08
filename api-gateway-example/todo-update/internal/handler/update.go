@@ -6,7 +6,7 @@ import (
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/ricardojonathanromero/lambda-serverless-example/api-gateway-example/todo-update/internal/domain"
 	"github.com/ricardojonathanromero/lambda-serverless-example/api-gateway-example/todo-update/internal/port"
-	"github.com/ricardojonathanromero/lambda-serverless-example/api-gateway-example/utils"
+	"github.com/ricardojonathanromero/lambda-utilities/utils"
 	"github.com/sirupsen/logrus"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"gopkg.in/DataDog/dd-trace-go.v1/ddtrace/tracer"

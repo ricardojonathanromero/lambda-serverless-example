@@ -3,7 +3,7 @@ package repository
 import (
 	"github.com/ricardojonathanromero/lambda-serverless-example/api-gateway-example/todo-get/internal/domain"
 	"github.com/ricardojonathanromero/lambda-serverless-example/api-gateway-example/todo-get/internal/port"
-	"github.com/ricardojonathanromero/lambda-serverless-example/api-gateway-example/utils"
+	"github.com/ricardojonathanromero/lambda-utilities/utils"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"

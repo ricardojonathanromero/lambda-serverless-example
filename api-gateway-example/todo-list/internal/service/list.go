@@ -3,7 +3,7 @@ package service
 import (
 	"github.com/ricardojonathanromero/lambda-serverless-example/api-gateway-example/todo-list/internal/domain"
 	"github.com/ricardojonathanromero/lambda-serverless-example/api-gateway-example/todo-list/internal/port"
-	"github.com/ricardojonathanromero/lambda-serverless-example/api-gateway-example/utils"
+	"github.com/ricardojonathanromero/lambda-utilities/utils"
 	"github.com/sirupsen/logrus"
 )
 

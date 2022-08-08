@@ -6,7 +6,7 @@ import (
 	"github.com/go-playground/validator/v10"
 	"github.com/ricardojonathanromero/lambda-serverless-example/api-gateway-example/todo-create/internal/domain"
 	"github.com/ricardojonathanromero/lambda-serverless-example/api-gateway-example/todo-create/internal/port"
-	"github.com/ricardojonathanromero/lambda-serverless-example/api-gateway-example/utils"
+	"github.com/ricardojonathanromero/lambda-utilities/utils"
 	"github.com/sirupsen/logrus"
 	"gopkg.in/DataDog/dd-trace-go.v1/ddtrace/tracer"
 	"net/http"
